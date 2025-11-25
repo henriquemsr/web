@@ -1,0 +1,17 @@
+<h2 >Registrar</h2>
+<div class="login">
+    <form [formGroup]="form">
+        <label>Nome</label>
+        <input type="text" formControlName="name" placeholder="Nome">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Nome">
+        <label>Senha</label>
+        <input type="password" formControlName="password" placeholder="Senha">
+        <label>Confirma senha</label>
+        <input type="password" formControlName="confirmpassword" placeholder="Confirma senha">
+        <button type="submit" (click)="onSubmit()">Registrar</button>
+        <div class="group">
+        <span routerLink="/login">voltar</span>
+        </div>
+    </form>
+</div>

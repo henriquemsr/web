@@ -1,0 +1,20 @@
+h2,h3,p{
+    margin:10px;
+}
+.wrap{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    span{
+        cursor:pointer;
+        margin:10px;
+    }
+}
+.wrap-buttons{
+    display: flex;
+    flex-direction: column;
+    button{
+        width:200px;
+        margin:15px;
+    }
+}

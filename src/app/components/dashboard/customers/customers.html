@@ -1,0 +1,10 @@
+<h2>Lista de clientes</h2>
+<div class="wrap-cards">
+    @for (item of list; track item._id){
+    <mat-card class="menu-card">
+        <mat-card-title>{{item.name}}</mat-card-title>
+        <button matButton="elevated" (click)="goToCustomers(item._id)">Visualizar</button>
+        <button matButton="elevated" (click)="goToTasks(item._id)">Agendar</button>
+    </mat-card>
+    }
+</div>

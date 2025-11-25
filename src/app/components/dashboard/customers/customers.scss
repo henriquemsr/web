@@ -1,0 +1,33 @@
+.wrap-cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.cards-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+mat-card{
+    padding:20px;
+    margin:20px;
+    button{
+      margin:10px;
+    }
+}
+
+.menu-card {
+  width: 200px;
+  height: 150px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}

@@ -1,0 +1,29 @@
+<mat-sidenav-container class="layout">
+
+    <!-- SIDENAV LATERAL -->
+    <mat-sidenav [(opened)]="opened" mode="side" class="sidebar">
+        <mat-nav-list>
+            <a mat-list-item (click)="showMenu('customers')">Clientes</a>
+            <a mat-list-item routerLink="/registercustomer">Registro</a>
+            <a mat-list-item>Produtos</a>
+            <!-- <a mat-list-item (click)="logout()">Sair</a> -->
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <mat-sidenav-content>
+
+        <mat-toolbar color="primary" class="mat-elevation-z4">
+            <button mat-icon-button (click)="toggleSidebar()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="ml-2">Dashboard</span>
+        </mat-toolbar>
+        @if(showCustomer){
+        <app-customers></app-customers>
+        }
+
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

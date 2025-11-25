@@ -1,0 +1,22 @@
+h2{
+    margin:15px;
+}
+.wrap{
+    display: flex;
+    flex-wrap:wrap;
+    width:100%;
+    margin:15px;
+    form{        
+        mat-form-field{
+            display: flex;
+            flex-direction: column;
+        }
+        button{
+            left:140px;
+        }
+    }
+}
+.wrap-title{
+    display: flex;
+    justify-content: space-between;
+}
