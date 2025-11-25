@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { Customers } from './customers/customers';
 import { RouterLink } from "@angular/router";
+import { LoginService } from '../login/service/login.service';
 @Component({
   selector: 'app-dashboard',
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, Customers, RouterLink],
@@ -15,6 +16,7 @@ import { RouterLink } from "@angular/router";
 export class Dashboard {
   opened = true;
   showCustomer = false;
+  public readonly service = inject(LoginService);
   toggleSidebar() {
     this.opened = !this.opened;
   }
@@ -22,5 +24,8 @@ export class Dashboard {
     if (param === 'customers') {
       this.showCustomer = true;
     }
+  }
+  logout() {
+    this.service.logout();
   }
 }

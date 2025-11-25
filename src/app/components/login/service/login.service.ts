@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { UserModel } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { Observable, tap } from 'rxjs';
 export class LoginService {
   public readonly user!: UserModel;
   private service = inject(HttpClient);
+  private route = inject(Router)
   private apiUrl = 'http://localhost:3000/auth/login';
 
   public login(email: string, password: string): Observable<UserModel> {
@@ -20,6 +22,11 @@ export class LoginService {
         localStorage.setItem('token', response.token);
       })
     );
+  }
+
+  public logout(){
+    localStorage.clear();
+    this.route.navigate(['/login'])
   }
 
 }
