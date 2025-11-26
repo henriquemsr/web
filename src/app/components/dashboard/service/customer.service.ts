@@ -22,11 +22,11 @@ export class CustomerService {
   }
 
   /** 📌 Buscar a lista de clientes */
-  public getListCustomer(): Observable<CustomerModel[]> {
-    return this.http.get<CustomerModel[]>(`${this.apiUrl}`, this.getAuthHeaders());
+  public getListCustomer(page:number, limit:number,search:string): Observable<CustomerModel[]> {
+    return this.http.get<CustomerModel[]>(`${this.apiUrl}?page=${page}&limit=${limit}&search=${search}`, this.getAuthHeaders());
   }
-  public getCustomerId(id: string): Observable<CustomerModel[]> {
-    return this.http.get<CustomerModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders());
+  public getCustomerId(id: string): Observable<CustomerModel> {
+    return this.http.get<CustomerModel>(`${this.apiUrl}/${id}`, this.getAuthHeaders());
   }
 
   /** 📌 Registrar cliente */

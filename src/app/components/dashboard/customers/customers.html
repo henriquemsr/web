@@ -1,4 +1,14 @@
 <h2>Lista de clientes</h2>
+<div class="wrap">
+    <mat-form-field class="example-full-width">
+        <mat-label>Pesquisar</mat-label>
+        <input matInput  [value]="search" (input)="searching($event)">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-paginator [length]="totalResults" [pageSize]="12" [pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="page - 1"
+    (page)="onPageChange($event)" aria-label="Select page">
+</mat-paginator>
+</div>
 <div class="wrap-cards">
     @for (item of list; track item._id){
     <mat-card class="menu-card">

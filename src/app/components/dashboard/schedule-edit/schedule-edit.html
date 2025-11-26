@@ -1,12 +1,9 @@
-<div class="wrap-title">
-    <h2>Agendar serviço</h2>
-    <button matButton="elevated" (click)="goBack()">Voltar</button>
+<div class="wrap">
+    <h2>Editar Agenda</h2>
+    <button matButton (click)="goBack()">Voltar</button>
 </div>
-
-<h2>Nome:{{customer.name}}</h2>
-<h2>Nome do pet: {{customer.pet_name}}</h2>
-
-<form class="wrap" [formGroup]="form">
+<h2>Nome:{{schedule.name_tutor}}</h2>
+<form class="wrap-form" [formGroup]="form">
     <mat-form-field>
         <mat-label>Escolha uma data</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="date">
@@ -21,5 +18,5 @@
         <mat-label>Digite o valor</mat-label>
         <input matInput type="text" (input)="onInput($event)"  formControlName="value">
     </mat-form-field>
-    <button type="submit" matButton="elevated" (click)="save()">Salvar</button>
+    <button type="submit" matButton="elevated" (click)="edit()">Salvar</button>
 </form>

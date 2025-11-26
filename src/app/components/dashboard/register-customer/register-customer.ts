@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomerService } from '../service/customer.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register-customer',
@@ -16,6 +17,7 @@ export class RegisterCustomer implements OnInit {
   form!: FormGroup;
   private fb = inject(FormBuilder);
   public service = inject(CustomerService);
+  private _snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -32,6 +34,17 @@ export class RegisterCustomer implements OnInit {
     this.service.registerCustomer(this.form.value).subscribe(res => {
       console.log(res);
       this.form.reset();
+      this._snackBar.open(
+        "Registro efetuado com sucesso!",
+        "Fechar",                        
+        {
+          duration: 5000,                
+          horizontalPosition: 'right',   
+          verticalPosition: 'top',       
+        }
+      ).onAction().subscribe(() => {
+        this._snackBar.dismiss();        
+      });
     })
   }
 }

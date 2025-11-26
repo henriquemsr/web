@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CustomerModel } from '../models/customer.model';
-import { CustomerService } from '../service/customer.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import { Location } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerService } from '../service/customer.service';
 @Component({
   selector: 'app-view-customer',
   imports: [MatButtonModule],
@@ -30,7 +29,7 @@ export class ViewCustomer implements OnInit {
   }
 
   goTasks(){
-    this.route.navigate([`tasks/${this.customer._id}`])
+    this.route.navigate([`/dash/tasks/${this.customer._id}`])
   }
   goback() {
     this.back.back();
