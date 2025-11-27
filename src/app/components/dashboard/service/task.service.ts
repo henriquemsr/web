@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { TaskModel } from '../models/task.model';
 import { Observable, tap } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { Observable, tap } from 'rxjs';
 export class TaskService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3000/task';
+  scheduleClient = signal<TaskModel[]>([]);
 
   private getAuthHeaders() {
     const token = localStorage.getItem('token');
@@ -28,7 +29,9 @@ export class TaskService {
     return this.http.get<TaskModel[]>(`${this.apiUrl}?page=${page}&limit=${limit}&search=${search}`, this.getAuthHeaders());
   }
   public getScheduleById(id: string): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders());
+    return this.http.get<TaskModel[]>(`${this.apiUrl}/byCustomer/${id}`, this.getAuthHeaders()).pipe(tap((res:any)=>{
+      this.scheduleClient.set(res.result);
+    }))
   }
   public editScheduleById(id: string, body: TaskModel): Observable<TaskModel[]> {
     return this.http.put<TaskModel[]>(`${this.apiUrl}/${id}`, body, this.getAuthHeaders());

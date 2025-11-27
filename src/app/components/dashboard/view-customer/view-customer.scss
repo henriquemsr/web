@@ -25,3 +25,18 @@ h2,h3,p{
     display: flex;
     flex-direction: column;
 }
+.wrap-schedule{
+    display: flex;
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid #ccc;
+        width:100%;
+        height:45px
+    }
+    .title{
+        font-size: 1.2rem;
+    }
+}

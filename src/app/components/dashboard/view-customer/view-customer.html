@@ -7,13 +7,14 @@
 <h3>{{customer.name}}</h3>
 <h3>Nome do pet: {{customer.pet_name}}</h3>
 <div class="wrap-buttons">
+    <button matButton="elevated" (click)="viewSchedule()">Agenda</button>
     <button matButton="elevated" (click)="goTasks()">Agendar serviço</button>
     <button matButton="elevated" (click)="showCustomerEdit()">Editar Cliente</button>
     <button matButton="elevated" (click)="showDelete()">Deletar Cliente</button>
 </div>
 @if(showButton){
     <div class="center">
-        <button matButton="elevated" color="red">Deseja realmente deletar este cliente</button>
+        <button matButton="elevated" color="red" (click)="deleteCustomer()">Deseja realmente deletar este cliente</button>
     </div>
 }
 @if(showEditCustomer){
@@ -34,4 +35,20 @@
         <button matButton (click)="edit()">Editar</button>
     </form>
     </div>
+}
+
+@if(showSchedule){
+    <div class="wrap-schedule">
+        <div class="title">Serviço</div>
+        <div class="title">Data</div>
+        <div class="title">Valor</div>
+    </div>
+    @for(item of serviceTask.scheduleClient(); track item._id){
+        <div class="wrap-schedule">
+            <div>{{item.task_name}}</div>
+            <div>{{item.date | date: 'dd/MM/yyyy'}}</div>
+            <div>{{item.value | currency: 'R$'}}</div>
+        </div>
+
+    }
 }

@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { CurrencyPipe, DatePipe, Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,15 +7,17 @@ import { CustomerModel } from '../models/customer.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TaskService } from '../service/task.service';
 @Component({
   selector: 'app-view-customer',
-  imports: [MatButtonModule, ReactiveFormsModule, MatInputModule],
+  imports: [MatButtonModule, ReactiveFormsModule, MatInputModule,DatePipe,CurrencyPipe],
   templateUrl: './view-customer.html',
   styleUrl: './view-customer.scss',
 })
 export class ViewCustomer implements OnInit {
   customer!: CustomerModel;
   public readonly service = inject(CustomerService);
+  public readonly serviceTask = inject(TaskService);
   public readonly activeRoute = inject(ActivatedRoute);
   public readonly back = inject(Location);
   public route = inject(Router);
@@ -24,6 +26,7 @@ export class ViewCustomer implements OnInit {
   form!: FormGroup;
   private fb = inject(FormBuilder);
   private _snackBar = inject(MatSnackBar);
+  showSchedule = false;
 
   ngOnInit() {
     const id = this.activeRoute.snapshot.paramMap.get('id')!;
@@ -54,25 +57,62 @@ export class ViewCustomer implements OnInit {
   showDelete() {
     this.showButton = !this.showButton;
     this.showEditCustomer = false
+    this.showSchedule = false;
+
   }
   showCustomerEdit() {
     this.showEditCustomer = !this.showEditCustomer;
     this.showButton = false;
+    this.showSchedule = false;
   }
   edit() {
-    this.service.updateCustomerId(this.customer._id, this.form.value).subscribe(()=>{
+    this.service.updateCustomerId(this.customer._id, this.form.value).subscribe(() => {
       this._snackBar.open(
         "Registro alterado com sucesso!",
-        "Fechar",                        
+        "Fechar",
         {
-          duration: 5000,                
-          horizontalPosition: 'right',   
-          verticalPosition: 'top',       
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
         }
       ).onAction().subscribe(() => {
-        this._snackBar.dismiss();        
+        this._snackBar.dismiss();
       });
       this.goback();
     })
+  }
+
+  deleteCustomer() {
+    this.service.deleteCustomerId(this.customer._id).subscribe(res => {
+      this._snackBar.open(
+        "Cliente deletado com sucesso!",
+        "Fechar",
+        {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        }
+      ).onAction().subscribe(() => {
+        this._snackBar.dismiss();
+      });
+      this.goback();
+    },
+      e => {
+        this._snackBar.open("Erro ao deletar cliente", "Fechar", { duration: 3000 });
+      })
+  }
+  viewSchedule() {
+    this.showSchedule = true;
+    this.showButton = false;
+    this.showEditCustomer = false;
+    console.log(this.customer._id);
+    this.serviceTask.getScheduleById(this.customer._id).subscribe(
+      () => {
+        console.log(this.serviceTask.scheduleClient());
+      }
+    );
+
+
+
   }
 }

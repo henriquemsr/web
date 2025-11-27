@@ -2,15 +2,16 @@
 <div class="wrap">
     <mat-form-field class="example-full-width">
         <mat-label>Pesquisar</mat-label>
-        <input matInput  [value]="search" (input)="searching($event)">
+        <input matInput [value]="service.search()" (input)="service.setSearch($any($event.target).value)
+         ">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-    <mat-paginator [length]="totalResults" [pageSize]="12" [pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="page - 1"
-    (page)="onPageChange($event)" aria-label="Select page">
-</mat-paginator>
+    <mat-paginator [length]="service.totalResults()" [pageSize]="12" [pageSizeOptions]="[5, 12, 25, 100]"
+        [pageIndex]="service.page() - 1" (page)="service.setPage($event)" aria-label="Select page">
+    </mat-paginator>
 </div>
 <div class="wrap-cards">
-    @for (item of list; track item._id){
+    @for (item of service.customers(); track item._id){
     <mat-card class="menu-card">
         <mat-card-title>{{item.name}}</mat-card-title>
         <button matButton="elevated" (click)="goToCustomers(item._id)">Visualizar</button>

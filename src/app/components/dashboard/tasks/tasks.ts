@@ -116,6 +116,7 @@ export class Tasks implements OnInit {
       ).onAction().subscribe(() => {
         this._snackBar.dismiss();        
       });
+      this.goBack();
     },
       e => {
         console.log(e);

@@ -25,25 +25,14 @@ export class Customers implements OnInit {
   public service = inject(CustomerService)
   public list!: CustomerModel[];
   public route = inject(Router);
-  page = 1;
-  limit = 12;
-  totalResults = 0;
-  search = "";
+  
 
   ngOnInit() {
-    this.getList();
+ 
+    this.service.loadCustomers();
   }
 
-  getList() {
-    this.service.getListCustomer(this.page, this.limit, this.search).subscribe(
-      (res: any) => {
-        this.list = res.customers
-        this.totalResults = res.totalResults;
-        console.log(res.customers);
-
-      }
-    )
-  }
+ 
   goToCustomers(id: string) {
     console.log(id);
     this.route.navigate([`/dash/view-customer/${id}`])
@@ -52,13 +41,5 @@ export class Customers implements OnInit {
     console.log(id);
     this.route.navigate([`/dash/tasks/${id}`])
   }
-  onPageChange(event: any) {
-    this.page = event.pageIndex + 1; // Angular pageIndex começa em 0
-    this.limit = event.pageSize;
-    this.getList();
-  }
-  searching(event: any) {
-  this.search = event.target.value;
-  this.getList(); // chama o método que busca a lista no backend
-}
+  
 }
