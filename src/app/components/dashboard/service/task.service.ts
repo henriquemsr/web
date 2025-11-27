@@ -24,8 +24,8 @@ export class TaskService {
     return this.http.post(`${this.apiUrl}/register`, task, this.getAuthHeaders());
   }
 
-  public getListSchedule(): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${this.apiUrl}`, this.getAuthHeaders());
+  public getListSchedule(page:number,limit:number,search:string): Observable<TaskModel[]> {
+    return this.http.get<TaskModel[]>(`${this.apiUrl}?page=${page}&limit=${limit}&search=${search}`, this.getAuthHeaders());
   }
   public getScheduleById(id: string): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders());

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../service/customer.service';
 import { TaskService } from '../service/task.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -35,6 +36,7 @@ export class Tasks implements OnInit {
   public readonly service = inject(CustomerService);
   public readonly taskService = inject(TaskService);
   public readonly back = inject(Location);
+  private _snackBar = inject(MatSnackBar);
   ngOnInit() {
     const id = this.activeRoute.snapshot.paramMap.get('id')!;
     this.activeRoute.params.subscribe(params=>{
@@ -103,6 +105,17 @@ export class Tasks implements OnInit {
     this.taskService.registerTask(payload).subscribe(res => {
       console.log(res);
       this.form.reset();
+      this._snackBar.open(
+        "Agenda registrada com sucesso!",
+        "Fechar",                        
+        {
+          duration: 5000,                
+          horizontalPosition: 'right',   
+          verticalPosition: 'top',       
+        }
+      ).onAction().subscribe(() => {
+        this._snackBar.dismiss();        
+      });
     },
       e => {
         console.log(e);

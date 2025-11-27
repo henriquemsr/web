@@ -8,6 +8,30 @@
 <h3>Nome do pet: {{customer.pet_name}}</h3>
 <div class="wrap-buttons">
     <button matButton="elevated" (click)="goTasks()">Agendar serviço</button>
-    <button matButton="elevated" >Editar Cliente</button>
-    <button matButton="elevated" >Deletar Cliente</button>
+    <button matButton="elevated" (click)="showCustomerEdit()">Editar Cliente</button>
+    <button matButton="elevated" (click)="showDelete()">Deletar Cliente</button>
 </div>
+@if(showButton){
+    <div class="center">
+        <button matButton="elevated" color="red">Deseja realmente deletar este cliente</button>
+    </div>
+}
+@if(showEditCustomer){
+    <div class="center">
+        <form class="wrap-form" [formGroup]="form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Nome</mat-label>
+            <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nome do Pet</mat-label>
+            <input type="text" matInput formControlName="pet_name">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Telefone</mat-label>
+            <input type="text" matInput formControlName="phone">
+        </mat-form-field>
+        <button matButton (click)="edit()">Editar</button>
+    </form>
+    </div>
+}

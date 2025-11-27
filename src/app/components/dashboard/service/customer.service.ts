@@ -33,4 +33,7 @@ export class CustomerService {
   public registerCustomer(customer: CustomerModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, customer, this.getAuthHeaders());
   }
+  public updateCustomerId(id: string, customer:CustomerModel): Observable<CustomerModel> {
+    return this.http.put<CustomerModel>(`${this.apiUrl}/${id}`,customer, this.getAuthHeaders());
+  }
 }

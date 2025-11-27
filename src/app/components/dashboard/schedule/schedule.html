@@ -39,5 +39,19 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
-
-
+<div class="wrap-paginator">
+  
+  <mat-form-field class="example-full-width">
+    <mat-label>Pesquisar</mat-label>
+    <input matInput  [value]="search" (input)="searching($event)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-paginator 
+  [length]="totalResults" 
+  [pageSize]="10" 
+  [pageSizeOptions]="[5, 10, 25, 100]" 
+  [pageIndex]="page - 1"
+  (page)="onPageChange($event)" 
+  aria-label="Select page"
+  >  </mat-paginator>
+</div>

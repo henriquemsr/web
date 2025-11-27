@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import Swal from 'sweetalert2'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-schedule-edit',
@@ -31,6 +32,7 @@ export class ScheduleEdit implements OnInit {
   schedule!: any;
   form!: FormGroup;
   value: number = 0;
+  private _snackBar = inject(MatSnackBar);
   private fb = inject(FormBuilder);
   ngOnInit() {
     this.route.params.subscribe((p: any) => {
@@ -97,19 +99,20 @@ export class ScheduleEdit implements OnInit {
 
     this.service.editScheduleById(this.schedule._id, payload).subscribe(res => {
       console.log(res);
+       this._snackBar.open(
+        "Registro atualizado com sucesso!",
+        "Fechar",                        
+        {
+          duration: 5000,                
+          horizontalPosition: 'right',   
+          verticalPosition: 'top',       
+        }
+      ).onAction().subscribe(() => {
+        this._snackBar.dismiss();        
+      });
     }, e => {
       console.log(e);
-      Swal.fire({
-        title: "Good job!",
-        text: "You clicked the button!",
-        icon: "success"
-      });
-      Swal.fire({
-        title: 'Error!',
-        text: 'Erro no Servidor',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-      })
+     
     })
 
   }

@@ -12,9 +12,16 @@ h2,h3,p{
 }
 .wrap-buttons{
     display: flex;
-    flex-direction: column;
     button{
         width:200px;
         margin:15px;
     }
+}
+.center{
+    display: flex;
+    justify-content: start;
+}
+.wrap-form{
+    display: flex;
+    flex-direction: column;
 }
