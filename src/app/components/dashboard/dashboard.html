@@ -1,5 +1,4 @@
 <mat-sidenav-container class="layout">
-
     <!-- SIDENAV LATERAL -->
     <mat-sidenav [(opened)]="opened" mode="side" class="sidebar">
         <mat-nav-list>
@@ -18,7 +17,7 @@
             <button mat-icon-button>
                 <mat-icon>menu</mat-icon>
             </button>
-            <span class="ml-2">Dashboard</span>
+            <span class="ml-2">Usuário logado: {{user.name}}</span>
         </mat-toolbar>
         <router-outlet></router-outlet>
 

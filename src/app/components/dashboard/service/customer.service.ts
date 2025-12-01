@@ -15,7 +15,7 @@ export class CustomerService {
   loading = signal<boolean>(false);
   search = signal<string>('');
   page = signal<number>(1);
-  limit = signal<number>(12);
+  limit = signal<number>(10);
   totalResults = signal<number>(0);
   private getAuthHeaders() {
     const token = localStorage.getItem('token');
@@ -63,16 +63,16 @@ export class CustomerService {
   public registerCustomer(customer: CustomerModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, customer, this.getAuthHeaders());
   }
-  public updateCustomerId(id: string, customer: CustomerModel): Observable<CustomerModel> {
+  public updateCustomerId(id?: string, customer?: CustomerModel): Observable<CustomerModel> {
     return this.http.put<CustomerModel>(`${this.apiUrl}/${id}`, customer, this.getAuthHeaders());
   }
 
-  public deleteCustomerId(id: string): Observable<any> {
+  public deleteCustomerId(id?: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, this.getAuthHeaders()).pipe(tap((result) => {
       console.log(result);
     }))
   }
-  scheduleId(id: string): Observable<any> {
+  scheduleId(id?: string): Observable<any> {
     return this.http.get<TaskModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders())
   }
 }

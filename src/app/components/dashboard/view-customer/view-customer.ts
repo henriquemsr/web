@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskService } from '../service/task.service';
 @Component({
   selector: 'app-view-customer',
-  imports: [MatButtonModule, ReactiveFormsModule, MatInputModule,DatePipe,CurrencyPipe],
+  imports: [MatButtonModule, ReactiveFormsModule, MatInputModule, DatePipe, CurrencyPipe],
   templateUrl: './view-customer.html',
   styleUrl: './view-customer.scss',
 })
@@ -35,6 +35,10 @@ export class ViewCustomer implements OnInit {
       name: ['', [Validators.required]],
       pet_name: ['', [Validators.required]],
       phone: ['', [Validators.required]],
+      peso: ['', [Validators.required]],
+      raca: ['', [Validators.required]],
+      idade: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
     });
   }
   getCustomer(id: string) {
@@ -42,8 +46,12 @@ export class ViewCustomer implements OnInit {
       console.log(res);
       this.customer = res.data
       this.form.get("name")?.setValue(this.customer.name)
-      this.form.get("pet_name")?.setValue(this.customer.pet_name)
+      this.form.get("pet_name")?.setValue(this.customer.pet.name)
       this.form.get("phone")?.setValue(this.customer.phone)
+      this.form.get("peso")?.setValue(this.customer.pet.peso)
+      this.form.get("raca")?.setValue(this.customer.pet.raca)
+      this.form.get("idade")?.setValue(this.customer.pet.idade)
+      this.form.get("sexo")?.setValue(this.customer.pet.sexo)
     })
   }
 
@@ -65,8 +73,22 @@ export class ViewCustomer implements OnInit {
     this.showButton = false;
     this.showSchedule = false;
   }
+
+
   edit() {
-    this.service.updateCustomerId(this.customer._id, this.form.value).subscribe(() => {
+    const body = {
+      _id: this.customer._id,
+      name: this.form.get("name")?.value,
+      phone: this.form.get("phone")?.value,
+      pet: {
+        name: this.form.get("pet_name")?.value,
+        peso: this.form.get("peso")?.value,
+        raca: this.form.get("raca")?.value,
+        idade: this.form.get("idade")?.value,
+        sexo: this.form.get("sexo")?.value,
+      }
+    }
+    this.service.updateCustomerId(this.customer._id, body).subscribe(() => {
       this._snackBar.open(
         "Registro alterado com sucesso!",
         "Fechar",
@@ -106,7 +128,7 @@ export class ViewCustomer implements OnInit {
     this.showButton = false;
     this.showEditCustomer = false;
     console.log(this.customer._id);
-    this.serviceTask.getScheduleById(this.customer._id).subscribe(
+    this.serviceTask.getScheduleByIdCustomer(this.customer._id).subscribe(
       () => {
         console.log(this.serviceTask.scheduleClient());
       }

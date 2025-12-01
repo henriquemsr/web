@@ -24,6 +24,10 @@ export class RegisterCustomer implements OnInit {
       name: ['', [Validators.required]],
       pet_name: ['', [Validators.required]],
       phone: ['', [Validators.required]],
+      peso: ['', [Validators.required]],
+      raca: ['', [Validators.required]],
+      idade: ['', [Validators.required]],
+      sexo: ['', [Validators.required]],
     });
   }
   goBack() {
@@ -31,7 +35,18 @@ export class RegisterCustomer implements OnInit {
   }
 
   save() {
-    this.service.registerCustomer(this.form.value).subscribe(res => {
+    const body = {
+      name: this.form.get("name")?.value,
+      phone: this.form.get("phone")?.value,
+      pet: {
+        name: this.form.get("pet_name")?.value,
+        peso: this.form.get("peso")?.value,
+        raca: this.form.get("raca")?.value,
+        idade: this.form.get("idade")?.value,
+        sexo: this.form.get("sexo")?.value,
+      }
+    }
+    this.service.registerCustomer(body).subscribe(res => {
       console.log(res);
       this.form.reset();
       this._snackBar.open(
@@ -45,6 +60,7 @@ export class RegisterCustomer implements OnInit {
       ).onAction().subscribe(() => {
         this._snackBar.dismiss();        
       });
+      this.goBack();
     })
   }
 }

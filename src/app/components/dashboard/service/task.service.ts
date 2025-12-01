@@ -29,6 +29,11 @@ export class TaskService {
     return this.http.get<TaskModel[]>(`${this.apiUrl}?page=${page}&limit=${limit}&search=${search}`, this.getAuthHeaders());
   }
   public getScheduleById(id: string): Observable<TaskModel[]> {
+    return this.http.get<TaskModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders()).pipe(tap((res:any)=>{
+      this.scheduleClient.set(res.result);
+    }))
+  }
+  public getScheduleByIdCustomer(id?: string): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(`${this.apiUrl}/byCustomer/${id}`, this.getAuthHeaders()).pipe(tap((res:any)=>{
       this.scheduleClient.set(res.result);
     }))

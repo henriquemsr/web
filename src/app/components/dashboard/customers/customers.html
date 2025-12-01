@@ -6,7 +6,7 @@
          ">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-    <mat-paginator [length]="service.totalResults()" [pageSize]="12" [pageSizeOptions]="[5, 12, 25, 100]"
+    <mat-paginator [length]="service.totalResults()" [pageSize]="12" [pageSizeOptions]="[5, 10, 25, 100]"
         [pageIndex]="service.page() - 1" (page)="service.setPage($event)" aria-label="Select page">
     </mat-paginator>
 </div>
@@ -15,7 +15,7 @@
     <mat-card class="menu-card">
         <mat-card-title>{{item.name}}</mat-card-title>
         <button matButton="elevated" (click)="goToCustomers(item._id)">Visualizar</button>
-        <button matButton="elevated" (click)="goToTasks(item._id)">Agendar</button>
+        <button matButton="filled" (click)="goToTasks(item._id)">Agendar</button>
     </mat-card>
     }
 </div>

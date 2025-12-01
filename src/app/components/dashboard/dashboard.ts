@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -6,16 +6,22 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { LoginService } from '../login/service/login.service';
+import { UserModel } from '../login/models/user.model';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet,MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterLink],
+  imports: [RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
   opened = true;
   showCustomer = false;
+  user!: UserModel;
   public readonly service = inject(LoginService);
+
+  ngOnInit(){
+    this.getUser();
+  }
   toggleSidebar() {
     this.opened = !this.opened;
   }
@@ -26,5 +32,20 @@ export class Dashboard {
   }
   logout() {
     this.service.logout();
+  }
+  getUser() {
+    const id = localStorage.getItem("id");
+    if (!id) {
+      console.error("Nenhum ID encontrado no localStorage!");
+      return;
+    }
+    this.service.getUser(id).subscribe((res:any) => {
+      console.log(res);
+      this.user = res.user
+    },
+      e => {
+        console.log(e);
+      }
+    )
   }
 }

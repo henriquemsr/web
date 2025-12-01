@@ -4,7 +4,7 @@
 </div>
 
 <h2>Nome:{{customer.name}}</h2>
-<h2>Nome do pet: {{customer.pet_name}}</h2>
+<h2>Nome do pet: {{customer.pet.name}}</h2>
 
 <form class="wrap" [formGroup]="form">
     <mat-form-field>
@@ -21,5 +21,5 @@
         <mat-label>Digite o valor</mat-label>
         <input matInput type="text" (input)="onInput($event)"  formControlName="value">
     </mat-form-field>
-    <button type="submit" matButton="elevated" (click)="save()">Salvar</button>
+    <button type="submit" matButton="filled" (click)="save()">Salvar</button>
 </form>

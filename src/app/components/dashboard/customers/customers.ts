@@ -33,11 +33,11 @@ export class Customers implements OnInit {
   }
 
  
-  goToCustomers(id: string) {
+  goToCustomers(id?: string) {
     console.log(id);
     this.route.navigate([`/dash/view-customer/${id}`])
   }
-  goToTasks(id: string) {
+  goToTasks(id?: string) {
     console.log(id);
     this.route.navigate([`/dash/tasks/${id}`])
   }

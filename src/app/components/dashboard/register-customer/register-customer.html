@@ -17,6 +17,27 @@
             <mat-label>Telefone</mat-label>
             <input type="text" matInput formControlName="phone">
         </mat-form-field>
-        <button matButton (click)="save()">Salvar</button>
+
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Peso</mat-label>
+            <input type="text" matInput formControlName="peso">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Raça</mat-label>
+            <input type="text" matInput formControlName="raca">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Idade</mat-label>
+            <input type="text" matInput formControlName="idade">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Sexo</mat-label>
+            <input type="text" matInput formControlName="sexo">
+        </mat-form-field> 
+        <button matButton="filled" (click)="save()">Salvar</button>
     </form>
 </div>

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { UserModel } from '../models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -8,11 +8,20 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class LoginService {
-  public readonly user!: UserModel;
+  user!: UserModel;
   private service = inject(HttpClient);
   private route = inject(Router)
   private apiUrl = 'http://localhost:3000/auth/login';
-
+  private apiUser = 'http://localhost:3000';
+  private getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      })
+    };
+  }
   public login(email: string, password: string): Observable<UserModel> {
     const body = { email, password };
 
@@ -24,7 +33,15 @@ export class LoginService {
     );
   }
 
-  public logout(){
+  public getUser(id: string): Observable<UserModel> {
+    return this.service.get<UserModel>(`${this.apiUser}/user/${id}`, this.getAuthHeaders()).pipe(tap((res:any) => {
+      this.user = res.user
+    }))
+
+  }
+
+
+  public logout() {
     localStorage.clear();
     this.route.navigate(['/login'])
   }
