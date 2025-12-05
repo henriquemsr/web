@@ -1,0 +1,39 @@
+.wrap-cards {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+mat-card {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    margin: 15px;
+}
+
+span {
+    margin: 15px;
+}
+mat-card-content{
+    display: flex;
+    span:nth:child(1){
+        margin-top: 10px!important;
+    }        
+}
+.my-badge {
+    width: 45px;    
+    height: 45px;    
+    border-radius: 50%;
+    background-color: #cd18cd;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+.value{
+    font-size: 12px;
+    font-weight: bold;
+}

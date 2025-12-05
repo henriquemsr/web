@@ -35,6 +35,16 @@ export class RegisterCustomer implements OnInit {
   }
 
   save() {
+    if(this.form.invalid){
+      this._snackBar.open("Formulário inválido","Fechar",{
+        duration: 5000,                
+          horizontalPosition: 'right',   
+          verticalPosition: 'top',
+      }).onAction().subscribe(()=>{
+        this._snackBar.dismiss();
+      })
+      return
+    }
     const body = {
       name: this.form.get("name")?.value,
       phone: this.form.get("phone")?.value,

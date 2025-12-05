@@ -25,20 +25,38 @@ export class TaskService {
     return this.http.post(`${this.apiUrl}/register`, task, this.getAuthHeaders());
   }
 
-  public getListSchedule(page:number,limit:number,search:string): Observable<TaskModel[]> {
+  public getListSchedule(page: number, limit: number, search: string): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(`${this.apiUrl}?page=${page}&limit=${limit}&search=${search}`, this.getAuthHeaders());
   }
   public getScheduleById(id: string): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders()).pipe(tap((res:any)=>{
+    return this.http.get<TaskModel[]>(`${this.apiUrl}/${id}`, this.getAuthHeaders()).pipe(tap((res: any) => {
       this.scheduleClient.set(res.result);
     }))
   }
   public getScheduleByIdCustomer(id?: string): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${this.apiUrl}/byCustomer/${id}`, this.getAuthHeaders()).pipe(tap((res:any)=>{
+    return this.http.get<TaskModel[]>(`${this.apiUrl}/byCustomer/${id}`, this.getAuthHeaders()).pipe(tap((res: any) => {
       this.scheduleClient.set(res.result);
     }))
   }
-  public editScheduleById(id: string, body: TaskModel): Observable<TaskModel[]> {
+  public editScheduleById(id: string, body: Partial<TaskModel>): Observable<TaskModel[]> {
     return this.http.put<TaskModel[]>(`${this.apiUrl}/${id}`, body, this.getAuthHeaders());
+  }
+
+  public deleteTask(id: string): Observable<TaskModel> {
+    return this.http.delete<TaskModel>(`${this.apiUrl}/${id}`,this.getAuthHeaders())
+  }
+  public getResultTasks():Observable<TaskModel[]>{
+    return this.http.get<TaskModel[]>(`${this.apiUrl}/payments`,this.getAuthHeaders())
+  }
+  public getTasksByParmas(param:number):Observable<any>{
+    return this.http.get(`${this.apiUrl}/payment/${param}`,this.getAuthHeaders())
+  }
+  
+  public getTotal():Observable<any>{
+    return this.http.get(`${this.apiUrl}/payment/total`,this.getAuthHeaders())
+  }
+
+  public getSumaryPayments():Observable<any>{
+    return this.http.get(`${this.apiUrl}/summary/payments`,this.getAuthHeaders())
   }
 }

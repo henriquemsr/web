@@ -40,7 +40,7 @@ export class CustomerService {
           this.loading.set(false);
         })
       )
-      .subscribe();
+      // .subscribe();
   }
   setSearch(value: string) {
     this.search.set(value);

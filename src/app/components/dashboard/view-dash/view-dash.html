@@ -1,0 +1,75 @@
+<div class="wrap-cards">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Serviços pagos</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <span>Pagos</span>
+        <span class="my-badge">{{resultsTaks.totalPagos}}</span>    
+      </mat-card-content>
+      <mat-card-content>
+        <span>Valor</span>
+        <span class="value">{{resultsTaks.valorPagos | currency:'BRL'}}</span>    
+      </mat-card-content>
+      <mat-card-actions>
+        <button matButton="filled" (click)="goSchedule(1)">Detalhes</button>
+      </mat-card-actions>
+    </mat-card>
+    
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Serviços não pagos</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <span>Não pagos</span>
+        <span class="my-badge">{{resultsTaks.totalNaoPagos}}</span>    
+      </mat-card-content>
+      <mat-card-content>
+        <span>Valor</span>
+        <span class="value">{{resultsTaks.valorNaoPagos | currency:'BRL'}}</span>    
+      </mat-card-content>
+      <mat-card-actions>
+        <button matButton="filled" (click)="goSchedule(0)">Detalhes</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Clientes</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <span>Total clientes</span>
+        <span class="my-badge value">{{serviceCustomer.totalResults()}}</span>
+      </mat-card-content>
+      <mat-card-content>
+        <span>Valor total</span>
+        <span class="value">{{totals.totalGeral | currency:'BRL'}}</span>    
+      </mat-card-content>
+      <mat-card-actions>
+        <button matButton="filled" (click)="goCustomer()">Detalhes</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Agenda</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <span>Serviços</span>
+        <span class="my-badge">{{serviceCustomer.totalResults()}}</span>
+      </mat-card-content>
+      <mat-card-content>
+        <span>Total Geral</span>
+        <span class="value">{{schedule.totalGeral | currency:'BRL'}}</span>    
+      </mat-card-content>
+      <mat-card-actions>
+        <button matButton="filled" (click)="goSchedule()">Detalhes</button>
+      </mat-card-actions>
+    </mat-card>
+
+    
+
+</div>

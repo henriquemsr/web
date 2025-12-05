@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule,    
+    MatButtonModule,
     ReactiveFormsModule
   ],
   providers: [provideNativeDateAdapter(), CurrencyPipe],
@@ -39,9 +39,9 @@ export class Tasks implements OnInit {
   private _snackBar = inject(MatSnackBar);
   ngOnInit() {
     const id = this.activeRoute.snapshot.paramMap.get('id')!;
-    this.activeRoute.params.subscribe(params=>{
+    this.activeRoute.params.subscribe(params => {
       console.log(params);
-      
+
     })
     this.getCustomer(id);
     this.form = this.fb.group({
@@ -90,6 +90,25 @@ export class Tasks implements OnInit {
   }
 
   save() {
+    const formDate = new Date(this.form.get("date")?.value);
+    const today = new Date();
+    if (formDate < today) {
+      this._snackBar.open(
+        "Data precisa ser maior que hoje!",
+        "Fechar",
+        {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        }
+      ).onAction().subscribe(() => {
+        this._snackBar.dismiss();
+      });
+     return
+    }
+
+    
+
     console.log(this.form.value);
     const formattedValue = this.form.value.value;
     const numericValue = this.currencyToNumber(formattedValue); // 50.00
@@ -107,14 +126,14 @@ export class Tasks implements OnInit {
       this.form.reset();
       this._snackBar.open(
         "Agenda registrada com sucesso!",
-        "Fechar",                        
+        "Fechar",
         {
-          duration: 5000,                
-          horizontalPosition: 'right',   
-          verticalPosition: 'top',       
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
         }
       ).onAction().subscribe(() => {
-        this._snackBar.dismiss();        
+        this._snackBar.dismiss();
       });
       this.goBack();
     },

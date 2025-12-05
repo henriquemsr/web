@@ -1,11 +1,15 @@
-<h2 >Login Sistema</h2>
+<h2>Login Sistema</h2>
 <div class="login">
     <form [formGroup]="form">
         <label>Email</label>
         <input type="text" formControlName="email" placeholder="Nome">
         <label>Senha</label>
         <input type="password" formControlName="password" placeholder="Senha">
+        @if(loading){
+        <mat-spinner></mat-spinner>
+        }@else{
         <button type="submit" [aria-disabled]="showButton" (click)="onSubmit()">Entrar</button>
+        }
         <div class="group">
             <span routerLink="/register">Registrar</span>
         </div>

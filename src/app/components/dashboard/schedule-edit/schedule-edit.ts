@@ -53,7 +53,9 @@ export class ScheduleEdit implements OnInit {
       console.log(res);
       this.schedule = res.result
       this.form.get("task_name")?.setValue(this.schedule.task_name);
-      this.form.get("value")?.setValue(this.schedule.value);
+      this.form.get("value")?.setValue(this.formatCurrency(this.schedule.value));
+      console.log(this.schedule.value);
+      
       this.form.get("date")?.setValue(this.schedule.date);
     })
   }

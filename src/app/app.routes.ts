@@ -16,7 +16,11 @@ export const routes: Routes = [
         loadComponent: () => import('./components/dashboard/dashboard').then(c => c.Dashboard),
         canActivate: [authGuard],
         children: [
-             { path: "", redirectTo: "customer", pathMatch: "full" },
+            { path: "", redirectTo: "view-dash", pathMatch: "full" },
+            {
+                path: "view-dash",
+                loadComponent: () => import('./components/dashboard/view-dash/view-dash').then(c => c.ViewDash)
+            },
             {
                 path: 'register',
                 loadComponent: () => import('./components/login/register/register').then(c => c.Register)
@@ -39,6 +43,10 @@ export const routes: Routes = [
             },
             {
                 path: "schedule",
+                loadComponent: () => import('./components/dashboard/schedule/schedule').then(c => c.Schedule)
+            },
+            {
+                path: "schedule/:param",
                 loadComponent: () => import('./components/dashboard/schedule/schedule').then(c => c.Schedule)
             },
             {

@@ -7,7 +7,7 @@ h2{
 }
 mat-icon{
     cursor:pointer;
-    color:violet;
+    color:rgb(213, 17, 213);
 }
 .wrap-paginator{
     display: flex;
@@ -16,4 +16,10 @@ mat-icon{
 }
 table{
     margin-left: 10px;
+}
+.pago{
+    color:green
+}
+.nao-pago{
+    color:red
 }
